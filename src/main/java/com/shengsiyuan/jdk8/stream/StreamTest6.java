@@ -17,8 +17,14 @@ public class StreamTest6 {
 //        stream.filter(item -> item > 2).mapToInt(item -> item * 2)
 //                .skip(2).limit(2).summaryStatistics().getMax();
 
+//        System.out.println(stream);
+//        System.out.println(stream.filter(item -> item > 2));
+//        System.out.println(stream.distinct());
+
         System.out.println(stream);
-        System.out.println(stream.filter(item -> item > 2));
-        System.out.println(stream.distinct());
+        Stream<Integer> stream2 = stream.filter(item -> item > 2);
+        System.out.println(stream2);
+        Stream<Integer> stream3 = stream2.distinct();
+        System.out.println(stream3);
     }
 }

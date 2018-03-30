@@ -18,8 +18,18 @@ public class MyComparatorTest {
 
 //        list.sort(Comparator.comparingInt(String::length).reversed());
 //        Collections.sort(list, Comparator.comparingInt(String::length).thenComparing(String.CASE_INSENSITIVE_ORDER));
-        Collections.sort(list, Comparator.comparingInt(String::length)
-                .thenComparing((item1, item2) -> item1.compareToIgnoreCase(item2)));
+//        Collections.sort(list, Comparator.comparingInt(String::length)
+//                .thenComparing((item1, item2) -> item1.compareToIgnoreCase(item2)));
+
+//        Collections.sort(list, Comparator.comparingInt(String::length)
+//                .thenComparing(Comparator.comparing(String::toLowerCase)));
+
+//        Collections.sort(list, Comparator.comparingInt(String::length)
+//                .thenComparing(Comparator.comparing(String::toLowerCase, Comparator.reverseOrder())));
+
+        Collections.sort(list, Comparator.comparingInt(String::length).reversed()
+                .thenComparing(Comparator.comparing(String::toLowerCase, Comparator.reverseOrder()))
+                .thenComparing(Comparator.reverseOrder()));
         System.out.println(list);
     }
 }

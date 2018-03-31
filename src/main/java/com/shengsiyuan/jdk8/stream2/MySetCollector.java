@@ -1,9 +1,6 @@
 package com.shengsiyuan.jdk8.stream2;
 
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
@@ -45,10 +42,12 @@ public class MySetCollector<T> implements Collector<T, Set<T>, Set<T>> {
     @Override
     public Set<Characteristics> characteristics() {
         System.out.println("characteristics invoked!");
-        return Collections.unmodifiableSet(EnumSet.of(IDENTITY_FINISH, UNORDERED));
+        return Collections.unmodifiableSet(EnumSet.of(UNORDERED));
     }
 
     public static void main(String[] args) {
-        MySetCollector<String> mySetCollector = new MySetCollector<>();
+        List<String> list = Arrays.asList("hello", "world", "welcome", "hello");
+        Set<String> set = list.stream().collect(new MySetCollector<String>());
+        System.out.println(set);
     }
 }

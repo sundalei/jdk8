@@ -21,6 +21,7 @@ public class MySetCollector2<T> implements Collector<T, Set<T>, Map<T, T>> {
         System.out.println("accumulator invoked!");
 
         return (set, item) -> {
+            System.out.println("accumulator: " + set + ", " + Thread.currentThread().getName());
             set.add(item);
         };
     }
@@ -40,7 +41,7 @@ public class MySetCollector2<T> implements Collector<T, Set<T>, Map<T, T>> {
         System.out.println("finisher invoked!");
 
         return set -> {
-            Map map = new HashMap();
+            Map map = new TreeMap();
             set.stream().forEach(item -> map.put(item, item));
             return map;
         };
@@ -50,7 +51,7 @@ public class MySetCollector2<T> implements Collector<T, Set<T>, Map<T, T>> {
     public Set<Characteristics> characteristics() {
         System.out.println("characteristics invoked!");
 
-        return Collections.unmodifiableSet(EnumSet.of(Characteristics.UNORDERED, Characteristics.IDENTITY_FINISH));
+        return Collections.unmodifiableSet(EnumSet.of(Characteristics.UNORDERED, Characteristics.CONCURRENT));
     }
 
     public static void main(String[] args) {
@@ -59,7 +60,7 @@ public class MySetCollector2<T> implements Collector<T, Set<T>, Map<T, T>> {
         set.addAll(list);
         System.out.println(set);
 
-        Map<String, String> map = set.stream().collect(new MySetCollector2<>());
+        Map<String, String> map = set.parallelStream().collect(new MySetCollector2<>());
         System.out.println(map);
     }
 }
